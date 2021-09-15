@@ -14,41 +14,55 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     int _selectedIndex = 0;
-  List<Widget> _widgetOptions = <Widget>[
-    Ui(),
-    Ui(),
-    Ui(),
+    List<Widget> _widgetOptions = <Widget>[
+      Ui(),
+      Ui(),
+      Ui(),
+    ];
+    // void _onItemTap(int index) {
+    //   setState(() {
+    //     _selectedIndex = index;
+    //   });
+    // }
 
-  ];
-  void _onItemTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: Scaffold(
         body: _widgetOptions.elementAt(_selectedIndex),
-        bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterDocked,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          clipBehavior: Clip.antiAlias,
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            currentIndex: _selectedIndex,
+            onTap: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.grey,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.date_range), label: 'Statistics'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.wallet_giftcard), label: 'Wallet'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: 'Profile'),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: "Messages",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
-         
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTap,
-      ),
+        ),
       ),
     );
   }
